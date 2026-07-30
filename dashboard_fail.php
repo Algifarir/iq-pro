@@ -1,0 +1,300 @@
+<?php
+
+	session_start();
+	include "config/koneksi.php";
+	$level=$_SESSION['level'];
+	$aksi=$_GET['aksi'];
+	$kopname = $_SESSION['kopname'];
+	if(empty($_SESSION['kopname'])||empty($_SESSION['level'])){	
+	
+    		header("location:dashboard.php");
+	}else{
+
+	$level = $_SESSION['level'];
+		$aksi=$_GET['aksi'];
+	$kopname = $_SESSION['kopname'];
+	
+	}
+	?>
+     <style>
+        html, body {
+  			 margin: 0;
+   			padding: 0;
+					}
+	  .box {
+   			min-height: 150px;
+   			width: 100%;
+			}
+	@media screen and (min-width: 800px) {
+   .container {
+       width: 800px;
+       margin-left: auto;
+       margin-right: auto;
+   }
+   .centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+	</style>
+
+<!DOCTYPE html>
+
+<head>
+ 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>MKM INspection</title>
+  <!-- Tell the browser to be responsive to screen width -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+   		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+</head>
+<body bgcolor="#990000">
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+    <ul class="navbar-nav nav-justified w-100">
+      <li class="nav-item">
+        <a href="dashboard.php" class="nav-link">
+        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+          </svg>
+          Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a href="dashboard.php?aksi=tambah" class="nav-link">Create Form</a>
+      </li>
+      <li class="nav-item">
+        <a href="dashboard_rework.php" class="nav-link">Rework Form</a>
+      </li>
+      <li class="nav-item">
+        <a href="dashboard_pending.php" class="nav-link">Pending Form</a>
+      </li>
+       <li class="nav-item">
+        <a href="dashboard_ok.php" class="nav-link">Engine. OK</a>
+      </li>
+        <li class="nav-item">
+        <a href="dashboard_fail.php" class="nav-link">Engine Fail</a>
+      </li>
+      <li class="nav-item">
+        <a href="crul.php" class="nav-link">Log Out</a>
+      </li>
+    </ul>
+  </nav>
+  
+<div class="container">
+<?php
+	if(empty($aksi)){
+?>
+
+
+</p>
+   
+   <table border="0">
+  <tr>
+    
+    <td>STATUS ENGINE FAIL</td>
+    
+  </tr>
+</table>
+<p> 
+         
+         
+         <form class="form-inline" role="form">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+		<tr bgcolor="#990000">
+             <th><a href="#"><font color="#FFFFFF">No</font></a></th>
+             <th><a href="#"><font color="#FFFFFF">No. Inspection</font></a></th>
+              <th><a href="#"><font color="#FFFFFF">Date</font></a></th>
+               <th><a href="#"><font color="#FFFFFF">No. Engine</font></a></th>
+                <th><a href="#"><font color="#FFFFFF">Engine Model</font></a></th>
+                <th><a href="#"><font color="#FFFFFF">Status</font></a></th>
+             <th colspan="3"><a><font color="#FFFFFF">Action</font></a></th>
+       	</tr>
+		
+    </thead><tbody><?php
+	
+						$halaman = 10;
+						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
+						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
+				
+						$result = mysql_query("SELECT * FROM proses_inspection_header where user_input ='".$kopname."' AND inspection_status = 'ENGINE FAIL' order by id DESC");
+						$total = mysql_num_rows($result);
+						$pages = ceil($total/$halaman);
+	
+						$query=mysql_query("SELECT * FROM proses_inspection_header where user_input ='".$kopname."' AND inspection_status = 'ENGINE FAIL' ORDER BY id DESC  Limit $mulai, $halaman");
+						$no = $mulai+1;;
+						while($data=mysql_fetch_array($query)){
+						
+						$test = $data['form_code'];
+?>
+    	<tr>
+			<td align="center"	><?php echo $no;?></td>
+            <td><?php echo $lagi=$data['inspection_number'];?></td>
+            <td><?php echo $data['inspection_date'];?></td>
+            <td><?php echo $data['inspection_engine_number'];?></td>
+            <td><?php echo $data['inspection_engine_model'];?></td>
+             <td><?php echo $data['inspection_status'];?></td>
+             <td align="center">
+          <?php
+				if($level=="Admin"){
+		   ?>
+            
+	<a class="btn btn-success btn-xs" href="ct_1x.php?form_code=<?php echo $data['form_code'];?>&inspection_number=<?php echo $data['inspection_number'];?>&aksi=<?php echo "insert"; ?>&en=<?php echo $data['inspection_engine_number'];?>&em=<?php echo $data['inspection_engine_model'];?>&dt=<?php echo $data['inspection_date'];?>&area=<?php echo $data['inspection_area'];?>"><i class="glyphicon glyphicon-edit"></i> </a>
+  
+			
+      
+      		<?php
+				}else{
+			?>
+            	
+      			<?php
+				if($rol_edit=='Yes'){
+				?>
+      					<a class="btn btn-success btn-xs" href="index.php?pilih=2.6&aksi=ubah&id=<?php echo $data['id'];?>"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                        
+                  <?php
+						}
+				  ?>
+                  
+      		<?php
+				}
+			?>
+            </td>
+        </tr>  
+<?php
+	$no++; } //tutup while
+?>
+</tbody> 
+</table></form>
+
+<div style="font-weight:bold;">
+						Page : 
+		<?php
+							for ($i=1; $i<=$pages ; $i++){
+						?>
+							<a href="dashboard_fail.php?pilih=2.6&halaman=<?php echo $i; ?>" style="text-decoration:none"><u><?php echo $i; ?></u></a>
+						<?php
+							}
+						?>
+				</div>
+
+</p>
+         
+<?php
+	}elseif($aksi=='tambah'){
+		
+?>       
+<div class="container">     
+
+<p class="login-box-msg"><strong>Pilih Formulir dibawah ini untuk Pengecekan</strong></p>
+<hr size="10px" style="background-color:#990000">
+  <form action="gnrt_number.php" method="post" >
+<table border="0" align="center">
+  <tr>
+    <td><strong>Type Form</strong></td>
+    <td>&nbsp;<strong>:</strong></td>
+    <td>&nbsp; <input type="hidden" name="kopname" value = "<?php echo $kopname;?>"/>
+    <select name="pilihanmenu">
+  <?php
+   //Membuat koneksi ke database akademik
+   
+	
+   //Perintah sql untuk menampilkan semua data pada tabel jurusan
+   $hasil=mysql_query("select * from master_type_form order by id ASC");
+    $no=0;
+    while ($dtcombo=mysql_fetch_array($hasil)) {
+    $no++;
+   ?>
+    <option value="<?php echo $dtcombo['form_code'];?>"><?php echo "Formulir"." : ".$dtcombo['form_code'];?></option>
+  <?php 
+	}
+  ?>
+</select>    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">&nbsp;
+      <button class="btn btn-success">Create Form</button>  &nbsp;&nbsp;    <a class="btn btn-warning" href="dashboard.php">Back Front</a></td>
+    </tr>
+   <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>
+</div>
+
+
+
+ 
+ 
+ <?php
+	}elseif($aksi=='create_form'){
+	
+?>      
+
+
+test
+ 
+ 
+ <?php
+	}elseif($aksi=='search'){
+	
+?>        
+    
+    
+    
+  <?php
+  }
+ ?> 
+       
+   
+
+    
+
+  </div>
+
+</body>
+</html>

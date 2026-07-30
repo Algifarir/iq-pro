@@ -1,0 +1,214 @@
+
+
+<?php
+include "config/koneksi.php";
+	$aksi="insert";;
+	$form_code=$_POST['pilihanmenu'];
+	$engine_number=$_POST['engine_number'];
+	$engine_model=$_POST['engine_model'];
+	$area=$_POST['area'];
+	$ip_number=$_POST['ip_number'];
+	$supply_num=$_POST['supply_num'];
+	$tgl = date_default_timezone_set('Asia/Jakarta');
+	$date = new DateTime();
+	
+	$tgl_m = date_format($date,'m');
+	$tgl_y = date_format($date,'Y');;
+	$Tgl_now = date_format($date,'Y-m-d h:i:s');
+	$form_code=$_POST['pilihanmenu'];
+	
+	$level=$_SESSION['level'];
+	$sts = "OPEN";
+	$kopname = $_POST['kopname'];
+	
+$hasilnocu=mysql_query("select * from proses_inspection_header_log where ip_number ='$ip_number'");
+    while ($dtnocu=mysql_fetch_array($hasilnocu)) 
+	{
+	
+		$no_cu = $dtnocu['ip_number'];
+
+	}
+	
+	if($no_cu==$ip_number){
+
+		header("location:dashboard.php?&kopname=$kopname&aksi=tambah&err=2");
+		
+	}else{
+
+
+	
+$hasilku=mysql_query("select * from proses_inspection_header_log where inspection_engine_number='$engine_number'");
+    while ($dtnos=mysql_fetch_array($hasilku)) 
+	{
+	
+		$no_fermos = $dtnos['inspection_engine_number'];
+
+	}
+	
+if($no_fermos==$engine_number){
+
+header("location:dashboard.php?&kopname=$kopname&aksi=tambah&err=1");
+$query_pt=mysql_query("UPDATE master_engine SET engine_status='Tidak Aktif' WHERE engine_number='$engine_number'");
+}else{
+	
+	
+$query_pt=mysql_query("UPDATE master_engine SET engine_status='Tidak Aktif' WHERE engine_number='$engine_number'");
+
+
+$hasil=mysql_query("select count(form_code) as no_frm from proses_inspection_header_log where form_code='$form_code' AND bln='$tgl_m' AND thn ='$tgl_y'");
+    while ($dtno=mysql_fetch_array($hasil)) 
+	{
+	
+		$no_frm = $dtno['no_frm'];
+
+	}
+	$no_urut=$no_frm+1;
+	$no_inspection = $form_code.".".$tgl_m.$tgl_y.".".$no_urut;
+	
+	$qxtambah=mysql_query("INSERT INTO proses_inspection_header (form_code,inspection_number,inspection_date,operator_name,inspection_status,bln,thn,user_input,created_fname,inspection_update_status,final_judgement,inspection_engine_number,inspection_engine_model,inspection_area,ip_number,faktor_koreksi) values ('$form_code','$no_inspection','$Tgl_now','$kopname','$sts','$tgl_m','$tgl_y','$kopname','$kopname','1','$sts','$engine_number','$engine_model','$area','$ip_number','$supply_num')");
+ 		
+	
+	
+
+			//isi item inspection		 
+						 
+		$sql=mysql_query("select * from master_item_inspection where form_code='".$form_code."'");
+		while ($ros=mysql_fetch_array($sql))
+														
+			{
+				$item = $ros['item_inspection'];
+			    $group_column = $ros['group_column'];
+			 
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,group_tab,group_column,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses) values ('$form_code','$no_inspection','$item','Running','$group_column','1','$engine_number','$engine_model','$area','$Tgl_now')");
+										
+			}					
+			
+		$sql2=mysql_query("select * from master_performance_test where form_code='".$form_code."'");
+		while ($ras=mysql_fetch_array($sql2))
+													
+			{
+				$item = $ras['description'];
+				$rpm = $ras['rpm'];
+				$smin = $ras['spec_start'];
+				$smax = $ras['spec_finish'];
+				$uom = $ras['uom'];
+			    $group_column = $ras['group_column'];
+				$operator_math = $ras['operator_math'];
+				$full_consup = $ras['full_consup'];
+				$cylinder = $ras['cylinder'];
+				$max_speed_start = $ras['max_speed_start'];
+				
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,rpm,spec_start,spec_finish,uom,group_tab,group_column,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses,operator_math,full_consup,cylinder,hasil_running_no) values ('$form_code','$no_inspection','$item','$rpm','$smin','$smax','$uom','Performance','$group_column','1','$engine_number','$engine_model','$area','$Tgl_now','$operator_math','$full_consup','$cylinder','$max_speed_start')");
+										
+			}					
+						
+						
+		$sql3=mysql_query("select * from master_inspection_top_engine where form_code='".$form_code."'");
+		while ($res=mysql_fetch_array($sql3))
+													
+			{
+				$item = $res['inspection_top_engine'];
+			 
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,group_tab,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses) values ('$form_code','$no_inspection','$item','Top','1','$engine_number','$engine_model','$area','$Tgl_now')");
+										
+			}			
+			
+			
+				$sql4=mysql_query("select * from master_inspection_right_side where form_code='".$form_code."'");
+		while ($ris=mysql_fetch_array($sql4))
+													
+			{
+				$item = $ris['inspection_right_side'];
+			 
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,group_tab,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses) values ('$form_code','$no_inspection','$item','Right','1','$engine_number','$engine_model','$area','$Tgl_now')");
+										
+			}						
+		
+		
+			$sql5=mysql_query("select * from master_inspection_left_side where form_code='".$form_code."'");
+		while ($res=mysql_fetch_array($sql5))
+													
+			{
+				$item = $res['inspection_left_side'];
+			 
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,group_tab,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses) values ('$form_code','$no_inspection','$item','Left','1','$engine_number','$engine_model','$area','$Tgl_now')");
+										
+			}	
+			
+			$sql6=mysql_query("select * from master_inspection_front_engine where form_code='".$form_code."'");
+		while ($ras=mysql_fetch_array($sql6))
+													
+			{
+				$item = $ras['inspection_front_engine'];
+			 
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,group_tab,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses) values ('$form_code','$no_inspection','$item','Front','1','$engine_number','$engine_model','$area','$Tgl_now')");
+										
+			}			
+			
+			
+			$sql7=mysql_query("select * from master_inspection_back_engine where form_code='".$form_code."'");
+		while ($rfs=mysql_fetch_array($sql7))
+													
+			{
+				$item = $rfs['inspection_back_engine'];
+			 
+				$ins_running=mysql_query("INSERT INTO proses_inspection_detail (form_code,inspection_number,description,group_tab,update_item,inspection_engine_number,inspection_engine_model,inspection_area,dt_proses) values ('$form_code','$no_inspection','$item','Back','1','$engine_number','$engine_model','$area','$Tgl_now')");
+										
+			}		
+	//selesai isi							
+										
+					if($qxtambah)
+						{ 
+						
+						$query_pt3=mysql_query("insert into proses_inspection_header_log select * from proses_inspection_header WHERE inspection_number='".$no_inspection."'");	
+
+	$query_pt4=mysql_query("insert into proses_inspection_detail_log select * from proses_inspection_detail WHERE inspection_number='".$no_inspection."'");
+						
+							if($form_code=="6D16T"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number");
+									
+							}elseif($form_code=="4D34 TD T5"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number");
+							}elseif($form_code=="4D34 TD T7"){
+								header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number");
+							
+							}elseif($form_code=="4D34 TD T8"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number");
+							}elseif($form_code=="4V21"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number");
+							
+							}elseif($form_code=="4V21-T1"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number&supply_num=$supply_num");
+						
+							}elseif($form_code=="4V21-T2"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number&supply_num=$supply_num");
+						
+							}elseif($form_code=="4V21-T4"){
+							
+									header("location:ct_2x.php?form_code=$form_code&inspection_number=$no_inspection&aksi=$aksi&en=$engine_number&em=$engine_model&area=$area&dt=$Tgl_now&kopname=$kopname&ip=$ip_number&supply_num=$supply_num");
+						
+							}else{
+							
+									header("location:dashboard.php?&kopname=$kopname");
+							
+							}
+								
+							
+					}else{
+						
+							header("location:dashboard.php?&kopname=$kopname");
+						}
+	
+	
+	}
+	
+	
+	}
+?>
+
