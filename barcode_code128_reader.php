@@ -183,41 +183,14 @@
                 };
             }
 
-            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                show('Browser tidak support akses kamera.');
+            getReader().decodeFromConstraints(constraints, video, function(result) {
+                if (!result || redirected) return;
+                var code = result.getText();
+                if (!code) return;
+
+                show('Hasil scan: ' + code);
                 stopScan();
-                return;
-            }
-
-            navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-                stream.getTracks().forEach(function(track) {
-                    track.stop();
-                });
-
-                getReader().decodeFromConstraints(constraints, video, function(result) {
-                    if (!result || redirected) return;
-                    var code = result.getText();
-                    if (!code) return;
-
-                    show('Hasil scan: ' + code);
-                    stopScan();
-                    openInspection(code);
-                });
-            }).catch(function(error) {
-                stopScan();
-                if (error && error.name === 'NotAllowedError') {
-                    show('Izin kamera ditolak. Klik ikon gembok di address bar, lalu Allow Camera.');
-                    return;
-                }
-                if (error && error.name === 'NotFoundError') {
-                    show('Kamera tidak ditemukan di device ini.');
-                    return;
-                }
-                if (error && error.name === 'NotReadableError') {
-                    show('Kamera sedang dipakai aplikasi lain. Tutup aplikasi kamera/meeting lalu coba lagi.');
-                    return;
-                }
-                show('Kamera tidak bisa dibuka: ' + (error && error.name ? error.name : 'unknown'));
+                openInspection(code);
             });
         }
 
