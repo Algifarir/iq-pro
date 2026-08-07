@@ -132,6 +132,10 @@
 
             getReader().listVideoInputDevices().then(function(cameras) {
                 cameraSelect.innerHTML = '';
+                var autoOption = document.createElement('option');
+                autoOption.value = '';
+                autoOption.textContent = 'Auto kamera belakang';
+                cameraSelect.appendChild(autoOption);
                 cameras.forEach(function(camera, index) {
                     var option = document.createElement('option');
                     option.value = camera.deviceId;
