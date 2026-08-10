@@ -2,7 +2,7 @@
 include "config/koneksi.php";
 $term = $_GET['term'];
  
-$query = mysql_query("select * from master_engine where engine_number like '%".$term."%' AND engine_status='Aktif'");
+$query = mysql_query("select * from master_engine where engine_number like '%".$term."%' AND engine_status='Aktif' LIMIT 50");
 $json = array();
 while($produk = mysql_fetch_array($query)){
     $json[] = array(

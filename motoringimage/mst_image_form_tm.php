@@ -141,8 +141,9 @@ return window.open(url, title, 'toolbar=no, location=no, directories=no, status=
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM transmisi_master_image order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM transmisi_master_image ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM transmisi_master_image ORDER BY id DESC  Limit $mulai, $halaman");
@@ -402,8 +403,9 @@ return window.open(url, title, 'toolbar=no, location=no, directories=no, status=
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM transmisi_master_image where form_type like '%".$kodesrc."%' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM transmisi_master_image where form_type like '%".$kodesrc."%' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM transmisi_master_image where form_type like '%".$kodesrc."%' ORDER BY id DESC  Limit $mulai, $halaman");

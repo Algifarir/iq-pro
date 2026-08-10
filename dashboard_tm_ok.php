@@ -140,8 +140,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM transmisi_proses_inspection_header_log where inspection_status = 'TM TEST OK' order by inspection_date DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM transmisi_proses_inspection_header_log where inspection_status = 'TM TEST OK' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM transmisi_proses_inspection_header_log where inspection_status = 'TM TEST OK' ORDER BY inspection_date DESC  Limit $mulai, $halaman");
@@ -301,8 +302,9 @@ test
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM transmisi_proses_inspection_header_log  where inspection_status = 'TM TEST OK' AND inspection_engine_number like '%$src%' order by inspection_date DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM transmisi_proses_inspection_header_log  where inspection_status = 'TM TEST OK' AND inspection_engine_number like '%$src%' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM transmisi_proses_inspection_header_log where inspection_status = 'TM TEST OK' AND inspection_engine_number like '%$src%' ORDER BY inspection_date DESC  Limit $mulai, $halaman");

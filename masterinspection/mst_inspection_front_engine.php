@@ -141,8 +141,9 @@ return window.open(url, title, 'toolbar=no, location=no, directories=no, status=
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM master_inspection_front_engine order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM master_inspection_front_engine ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM master_inspection_front_engine ORDER BY id DESC  Limit $mulai, $halaman");
@@ -383,8 +384,9 @@ return window.open(url, title, 'toolbar=no, location=no, directories=no, status=
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM master_inspection_front_engine where inspection_front_engine like '%".$kodesrc."%' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM master_inspection_front_engine where inspection_front_engine like '%".$kodesrc."%' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM master_inspection_front_engine where inspection_front_engine like '%".$kodesrc."%' ORDER BY id DESC  Limit $mulai, $halaman");

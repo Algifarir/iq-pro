@@ -196,7 +196,7 @@
     </thead><tbody id="tampil"><?php
 	
 						
-						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number ' AND group_column = 'Page Left' AND group_tab='Running' AND inspection_status ='$sts'");
+						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number' AND group_column = 'Page Left' AND group_tab='Running' AND inspection_status ='$sts'");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							$cek_udt_sts= $data['update_item'];
@@ -522,7 +522,7 @@
     </thead><tbody id="tampil"><?php
 	
 						
-						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number ' AND group_tab='Right' AND inspection_status ='$sts'");
+						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number' AND group_tab='Right' AND inspection_status ='$sts'");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							$cek_udt_sts= $data['update_item'];
@@ -614,7 +614,7 @@
     </thead><tbody id="tampil"><?php
 	
 						
-						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number ' AND group_tab='Left' AND inspection_status ='$sts'");
+						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number' AND group_tab='Left' AND inspection_status ='$sts'");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							$cek_udt_sts= $data['update_item'];
@@ -712,7 +712,7 @@
     </thead><tbody id="tampil"><?php
 	
 						
-						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number ' AND group_tab='Front' AND inspection_status ='$sts'");
+						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number' AND group_tab='Front' AND inspection_status ='$sts'");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							$cek_udt_sts= $data['update_item'];
@@ -800,7 +800,7 @@
     </thead><tbody id="tampil"><?php
 	
 						
-						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number ' AND group_tab='Top' AND inspection_status ='$sts'");
+						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number' AND group_tab='Top' AND inspection_status ='$sts'");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							$cek_udt_sts= $data['update_item'];
@@ -894,7 +894,7 @@
     </thead><tbody id="tampil"><?php
 	
 						
-						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number ' AND group_tab='Back' AND inspection_status ='$sts'");
+						$query=mysql_query("SELECT * FROM proses_inspection_detail_log where inspection_number='$inspection_number' AND group_tab='Back' AND inspection_status ='$sts'");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							$cek_udt_sts= $data['update_item'];

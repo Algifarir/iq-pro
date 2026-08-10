@@ -121,8 +121,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM proses_inspection_header where inspection_status='OPEN' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM proses_inspection_header where inspection_status='OPEN' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM proses_inspection_header where inspection_status='OPEN' ORDER BY id DESC  Limit $mulai, $halaman");
@@ -312,8 +313,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM proses_inspection_header where inspection_status='OPEN' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM proses_inspection_header where inspection_status='OPEN' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM proses_inspection_header where inspection_status='OPEN' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' ORDER BY id DESC  Limit $mulai, $halaman");

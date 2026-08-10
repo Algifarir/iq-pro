@@ -156,8 +156,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM transmisi_proses_inspection_header where inspection_status = 'REWORK' order by inspection_date DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM transmisi_proses_inspection_header where inspection_status = 'REWORK' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM transmisi_proses_inspection_header where inspection_status = 'REWORK' ORDER BY inspection_date DESC  Limit $mulai, $halaman");

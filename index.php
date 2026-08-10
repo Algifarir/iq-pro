@@ -1,11 +1,13 @@
 <?php
-
+	// Set default timezone untuk menghilangkan warning
+	date_default_timezone_set('Asia/Jakarta');
 	session_start();
 
-	$level=$_SESSION['level'];
+	// Cegah warning undefined index di PHP 8
+	$level = isset($_SESSION['level']) ? $_SESSION['level'] : '';
+	$kopname = isset($_SESSION['kopname']) ? $_SESSION['kopname'] : '';
 	
-	
-	if(empty($_SESSION['kopname'])||empty($_SESSION['level'])){	?>
+	if(empty($kopname) || empty($level)){	?>
 		<script>
      
     window.location="login/login.php"; 
@@ -13,9 +15,11 @@
     <?php
 	}else
     {
-    $pilih=$_GET['pilih'];
+	// Tangani index 'pilih' yang mungkin kosong
+    $pilih = isset($_GET['pilih']) ? $_GET['pilih'] : '';
       switch($pilih){
         default   : $tampil = "mst_isi.php"; break;
+        case "home"  : $tampil = "home_loader.php"; break;
         case "1.1"  : $tampil = "masteruser/mst_user.php"; break; 
         case "1.2"  : $tampil = "masteruser/mst_assigned.php"; break;
         case "2.1"  : $tampil = "masterarea/mst_area.php"; break; 

@@ -122,8 +122,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM proses_inspection_header_log order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM proses_inspection_header_log ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM proses_inspection_header_log ORDER BY id DESC  Limit $mulai, $halaman");
@@ -324,8 +325,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM proses_inspection_header_log where inspection_engine_number like '%$src%' or inspection_number like '%$src%' or operator_name like '%$src%' or inspection_date like '%$src%' or final_judgement like '%$src%' or inspection_engine_model like '%$src%' or inspection_area like '%$src%' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM proses_inspection_header_log where inspection_engine_number like '%$src%' or inspection_number like '%$src%' or operator_name like '%$src%' or inspection_date like '%$src%' or final_judgement like '%$src%' or inspection_engine_model like '%$src%' or inspection_area like '%$src%' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM proses_inspection_header_log where inspection_engine_number like '%$src%' or inspection_number like '%$src%' or operator_name like '%$src%' or inspection_date like '%$src%' or final_judgement like '%$src%' or inspection_engine_model like '%$src%' or inspection_area like '%$src%' ORDER BY id DESC  Limit $mulai, $halaman");

@@ -4,13 +4,13 @@ session_start();
 include "../config/koneksi.php";
 
 // Dikirim dari form
-$username=$_POST['username'];
-$password=$_POST['password'];
+$username = mysql_real_escape_string($_POST['username']);
+$password = mysql_real_escape_string($_POST['password']);
 
-$p		= md5($password);
-$query=mysql_query("SELECT * FROM master_user WHERE username='$username' AND password='$p' AND log_status ='out'");
-$jumlah=mysql_num_rows($query);
-$a=mysql_fetch_array($query);
+$p = md5($password); // Warning: MD5 is not secure, but kept for compatibility. To upgrade, use password_hash.
+$query = mysql_query("SELECT * FROM master_user WHERE username='$username' AND password='$p' AND log_status ='out'");
+$jumlah = mysql_num_rows($query);
+$a = mysql_fetch_array($query);
 
 if($jumlah > 0){
 	if($a['level']=='Admin')

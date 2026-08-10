@@ -107,8 +107,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM master_user where usr_stat = 'Aktif' and level <> 'Admin' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM master_user where usr_stat = 'Aktif' and level <> 'Admin' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM master_user where usr_stat = 'Aktif' and level <> 'Admin' ORDER BY id DESC  Limit $mulai, $halaman");
@@ -333,8 +334,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM master_menu_user where user = '$usr_login' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM master_menu_user where user = '$usr_login' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM master_menu_user where user = '$usr_login' ORDER BY id DESC  Limit $mulai, $halaman");
@@ -452,8 +454,9 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM master_user where full_name like '%".$kodesrc."%' and usr_stat = 'Aktif' and level <> 'Admin' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(*) as total FROM master_user where full_name like '%".$kodesrc."%' and usr_stat = 'Aktif' and level <> 'Admin' ");
+						$__tot_row = mysql_fetch_array($result);
+						$total = $__tot_row['total'];
 						$pages = ceil($total/$halaman);
 	
 						$query=mysql_query("SELECT * FROM master_user where full_name like '%".$kodesrc."%' and usr_stat = 'Aktif' and level <> 'Admin' ORDER BY id DESC  Limit $mulai, $halaman");

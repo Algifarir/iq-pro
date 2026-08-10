@@ -137,11 +137,13 @@
 						$page    =isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
 						$mulai    =($page>1) ? ($page * $halaman) - $halaman : 0;
 				
-						$result = mysql_query("SELECT * FROM proses_inspection_header_log order by id DESC");
-						$total = mysql_num_rows($result);
+						// Optimasi COUNT
+						$result = mysql_query("SELECT count(id) as total FROM proses_inspection_header_log");
+						$total_row = mysql_fetch_array($result);
+						$total = $total_row['total'];
 						$pages = ceil($total/$halaman);
 	
-						$query=mysql_query("SELECT * FROM proses_inspection_header_log ORDER BY id DESC  Limit $mulai, $halaman");
+						$query=mysql_query("SELECT * FROM proses_inspection_header_log ORDER BY id DESC Limit $mulai, $halaman");
 						$no = $mulai+1;;
 						while($data=mysql_fetch_array($query)){
 							
@@ -185,10 +187,25 @@
 <div style="font-weight:bold;">
 						Page : 
 		<?php
-							for ($i=1; $i<=$pages ; $i++){
-						?>
-							<a href="index.php?pilih=3.1&halaman=<?php echo $i; ?>" style="text-decoration:none"><u><?php echo $i; ?></u></a>
-						<?php
+							$start_page = max(1, $page - 3);
+							$end_page = min($pages, $page + 3);
+							
+							if($page > 1){
+								echo '<a href="index.php?pilih=3.1&halaman=1" style="text-decoration:none">&laquo; First</a> | ';
+								echo '<a href="index.php?pilih=3.1&halaman='.($page-1).'" style="text-decoration:none">&lsaquo; Prev</a> | ';
+							}
+							
+							for ($i=$start_page; $i<=$end_page ; $i++){
+								if($i == $page) {
+									echo " <u>$i</u> ";
+								} else {
+									echo ' <a href="index.php?pilih=3.1&halaman='.$i.'" style="text-decoration:none">'.$i.'</a> ';
+								}
+							}
+							
+							if($page < $pages){
+								echo ' | <a href="index.php?pilih=3.1&halaman='.($page+1).'" style="text-decoration:none">Next &rsaquo;</a>';
+								echo ' | <a href="index.php?pilih=3.1&halaman='.$pages.'" style="text-decoration:none">Last &raquo;</a>';
 							}
 						?>
 				</div>
@@ -223,65 +240,37 @@
 						
 if($area=="ALL"){
 
-$tot_area1=mysql_query("SELECT count(inspection_number) as total_area1 from proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' ");
-$jml_area1=mysql_fetch_array($tot_area1);
-$tot_all_area1=$jml_area1['total_area1'];
-
-
-$tot_area2=mysql_query("SELECT count(inspection_number) as total_area2 from proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='OPEN'");
-$jml_area2=mysql_fetch_array($tot_area2);
-$tot_all_area2=$jml_area2['total_area2'];
-
-$tot_area2x=mysql_query("SELECT count(inspection_number) as total_area2x from proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='SDI'");
-$jml_area2x=mysql_fetch_array($tot_area2x);
-$tot_all_area2x=$jml_area2x['total_area2x'];
-
-
-$tot_area3=mysql_query("SELECT count(inspection_number) as total_area3 from proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='ENGINE OK'");
-$jml_area3=mysql_fetch_array($tot_area3);
-$tot_all_area3=$jml_area3['total_area3'];
-
-$tot_area4=mysql_query("SELECT count(inspection_number) as total_area4 from proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='REWORK'");
-$jml_area4=mysql_fetch_array($tot_area4);
-$tot_all_area4=$jml_area4['total_area4'];
-
-$tot_area5=mysql_query("SELECT count(inspection_number) as total_area5 from proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='PENDING'");
-$jml_area5=mysql_fetch_array($tot_area5);
-$tot_all_area5=$jml_area5['total_area5'];
-
-
-
-	
-	
-
+    $tot_area_query = mysql_query("SELECT 
+        count(inspection_number) as total_area1,
+        SUM(IF(inspection_status='OPEN', 1, 0)) as total_area2,
+        SUM(IF(inspection_status='SDI', 1, 0)) as total_area2x,
+        SUM(IF(inspection_status='ENGINE OK', 1, 0)) as total_area3,
+        SUM(IF(inspection_status='REWORK', 1, 0)) as total_area4,
+        SUM(IF(inspection_status='PENDING', 1, 0)) as total_area5
+        FROM proses_inspection_header_log 
+        WHERE inspection_date >= '$tgl_1 00:00:00' AND inspection_date <= '$tgl_2 23:59:59'");
 
 }else{
-$tot_area1=mysql_query("SELECT count(inspection_number) as total_area1 from proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' ");
-$jml_area1=mysql_fetch_array($tot_area1);
-$tot_all_area1=$jml_area1['total_area1'];
 
-
-$tot_area2=mysql_query("SELECT count(inspection_number) as total_area2 from proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='OPEN'");
-$jml_area2=mysql_fetch_array($tot_area2);
-$tot_all_area2=$jml_area2['total_area2'];
-
-$tot_area2x=mysql_query("SELECT count(inspection_number) as total_area2x from proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='SDI'");
-$jml_area2x=mysql_fetch_array($tot_area2x);
-$tot_all_area2x=$jml_area2x['total_area2x'];
-
-$tot_area3=mysql_query("SELECT count(inspection_number) as total_area3 from proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='ENGINE OK'");
-$jml_area3=mysql_fetch_array($tot_area3);
-$tot_all_area3=$jml_area3['total_area3'];
-
-$tot_area4=mysql_query("SELECT count(inspection_number) as total_area4 from proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='REWORK'");
-$jml_area4=mysql_fetch_array($tot_area4);
-$tot_all_area4=$jml_area4['total_area4'];
-
-$tot_area5=mysql_query("SELECT count(inspection_number) as total_area5 from proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' AND inspection_status ='PENDING'");
-$jml_area5=mysql_fetch_array($tot_area5);
-$tot_all_area5=$jml_area5['total_area5'];
+    $tot_area_query = mysql_query("SELECT 
+        count(inspection_number) as total_area1,
+        SUM(IF(inspection_status='OPEN', 1, 0)) as total_area2,
+        SUM(IF(inspection_status='SDI', 1, 0)) as total_area2x,
+        SUM(IF(inspection_status='ENGINE OK', 1, 0)) as total_area3,
+        SUM(IF(inspection_status='REWORK', 1, 0)) as total_area4,
+        SUM(IF(inspection_status='PENDING', 1, 0)) as total_area5
+        FROM proses_inspection_header_log 
+        WHERE inspection_area ='$area' AND inspection_date >= '$tgl_1 00:00:00' AND inspection_date <= '$tgl_2 23:59:59'");
 
 }
+
+$jml_area = mysql_fetch_array($tot_area_query);
+$tot_all_area1 = $jml_area['total_area1'];
+$tot_all_area2 = $jml_area['total_area2'];
+$tot_all_area2x = $jml_area['total_area2x'];
+$tot_all_area3 = $jml_area['total_area3'];
+$tot_all_area4 = $jml_area['total_area4'];
+$tot_all_area5 = $jml_area['total_area5'];
 
 		
 ?>
@@ -476,20 +465,22 @@ $tot_all_area5=$jml_area5['total_area5'];
 			if($area=="ALL"){
 			
 			
-			$result = mysql_query("SELECT * FROM proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' order by id DESC");
-						$total = mysql_num_rows($result);
+			$result = mysql_query("SELECT count(id) as total FROM proses_inspection_header_log where inspection_date >= '$tgl_1 00:00:00' AND inspection_date <= '$tgl_2 23:59:59'");
+						$total_row = mysql_fetch_array($result);
+						$total = $total_row['total'];
 						$pages = ceil($total/$halaman);
 	
-						$query=mysql_query("SELECT * FROM proses_inspection_header_log where date(inspection_date) between '$tgl_1' AND '$tgl_2' ORDER BY id DESC  Limit $mulai, $halaman");
+						$query=mysql_query("SELECT * FROM proses_inspection_header_log where inspection_date >= '$tgl_1 00:00:00' AND inspection_date <= '$tgl_2 23:59:59' ORDER BY id DESC Limit $mulai, $halaman");
 			
 			
 			}else{
 				
-						$result = mysql_query("SELECT * FROM proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' order by id DESC");
-						$total = mysql_num_rows($result);
+						$result = mysql_query("SELECT count(id) as total FROM proses_inspection_header_log where inspection_area ='$area' AND inspection_date >= '$tgl_1 00:00:00' AND inspection_date <= '$tgl_2 23:59:59'");
+						$total_row = mysql_fetch_array($result);
+						$total = $total_row['total'];
 						$pages = ceil($total/$halaman);
 	
-						$query=mysql_query("SELECT * FROM proses_inspection_header_log where inspection_area ='$area' AND date(inspection_date) between '$tgl_1' AND '$tgl_2' ORDER BY id DESC  Limit $mulai, $halaman");
+						$query=mysql_query("SELECT * FROM proses_inspection_header_log where inspection_area ='$area' AND inspection_date >= '$tgl_1 00:00:00' AND inspection_date <= '$tgl_2 23:59:59' ORDER BY id DESC Limit $mulai, $halaman");
 						
 			}
 						$no = $mulai+1;;
@@ -537,10 +528,25 @@ $tot_all_area5=$jml_area5['total_area5'];
 <div style="font-weight:bold;">
 						Page : 
 		<?php
-							for ($i=1; $i<=$pages ; $i++){
-						?>
-							<a href="index.php?pilih=3.1&aksi=search&area=<?php echo $area; ?>&dt1=<?php echo $tgl_1; ?>&dt2=<?php echo $tgl_2; ?>&halaman=<?php echo $i; ?>" style="text-decoration:none"><u><?php echo $i; ?></u></a>
-						<?php
+							$start_page = max(1, $page - 3);
+							$end_page = min($pages, $page + 3);
+							
+							if($page > 1){
+								echo '<a href="index.php?pilih=3.1&aksi=search&area='.$area.'&dt1='.$tgl_1.'&dt2='.$tgl_2.'&halaman=1" style="text-decoration:none">&laquo; First</a> | ';
+								echo '<a href="index.php?pilih=3.1&aksi=search&area='.$area.'&dt1='.$tgl_1.'&dt2='.$tgl_2.'&halaman='.($page-1).'" style="text-decoration:none">&lsaquo; Prev</a> | ';
+							}
+							
+							for ($i=$start_page; $i<=$end_page ; $i++){
+								if($i == $page) {
+									echo " <u>$i</u> ";
+								} else {
+									echo ' <a href="index.php?pilih=3.1&aksi=search&area='.$area.'&dt1='.$tgl_1.'&dt2='.$tgl_2.'&halaman='.$i.'" style="text-decoration:none">'.$i.'</a> ';
+								}
+							}
+							
+							if($page < $pages){
+								echo ' | <a href="index.php?pilih=3.1&aksi=search&area='.$area.'&dt1='.$tgl_1.'&dt2='.$tgl_2.'&halaman='.($page+1).'" style="text-decoration:none">Next &rsaquo;</a>';
+								echo ' | <a href="index.php?pilih=3.1&aksi=search&area='.$area.'&dt1='.$tgl_1.'&dt2='.$tgl_2.'&halaman='.$pages.'" style="text-decoration:none">Last &raquo;</a>';
 							}
 						?>
 				</div>

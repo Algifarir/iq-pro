@@ -9,34 +9,45 @@
 <?php
 include "config/koneksi.php";
 
-$tot_eng1=mysql_query("SELECT count(inspection_number) as total_engine from proses_inspection_header where inspection_status in ('REWORK','PENDING','OPEN')");
-$jml_eng1=mysql_fetch_array($tot_eng1);
-$tot_all_eng1=$jml_eng1['total_engine'];
+$filter_year = isset($_GET['f_year']) ? $_GET['f_year'] : '2026';
+$filter_month = isset($_GET['f_month']) ? $_GET['f_month'] : 'ALL';
 
-$tot_eng2=mysql_query("SELECT count(inspection_number) as total_engine from proses_inspection_header_log where inspection_status in ('ENGINE OK')");
+$where_header = "1=1";
+$where_detail = "1=1";
+
+if ($filter_year != 'ALL') {
+    if ($filter_month != 'ALL') {
+        $month_padded = str_pad($filter_month, 2, '0', STR_PAD_LEFT);
+        $prefix = $filter_year . '-' . $month_padded;
+        $where_header .= " AND inspection_date LIKE '$prefix%'";
+        $where_detail .= " AND dt_proses LIKE '$prefix%'";
+    } else {
+        $where_header .= " AND inspection_date LIKE '$filter_year-%'";
+        $where_detail .= " AND dt_proses LIKE '$filter_year-%'";
+    }
+}
+
+// Default values
+$tot_all_eng_open = 0;
+$tot_all_eng_rework = 0;
+$tot_all_eng_pending = 0;
+
+// OPTIMASI: Ganti 4 query COUNT terpisah menjadi 1 query GROUP BY
+$q_status = mysql_query("SELECT inspection_status, count(inspection_number) as total FROM proses_inspection_header WHERE inspection_status IN ('REWORK','PENDING','OPEN') AND $where_header GROUP BY inspection_status");
+while($row = mysql_fetch_array($q_status)) {
+    if($row['inspection_status'] == 'OPEN') $tot_all_eng_open = $row['total'];
+    if($row['inspection_status'] == 'REWORK') $tot_all_eng_rework = $row['total'];
+    if($row['inspection_status'] == 'PENDING') $tot_all_eng_pending = $row['total'];
+}
+$tot_all_eng1 = $tot_all_eng_open + $tot_all_eng_rework + $tot_all_eng_pending;
+
+// Query terpisah karena beda tabel (proses_inspection_header_log)
+$tot_eng2=mysql_query("SELECT count(inspection_number) as total_engine_ok from proses_inspection_header_log where inspection_status ='ENGINE OK' AND $where_header");
 $jml_eng2=mysql_fetch_array($tot_eng2);
-$tot_all_eng2=$jml_eng2['total_engine'];
+$tot_all_eng_ok=$jml_eng2['total_engine_ok'];
+$tot_all_eng2=$tot_all_eng_ok; // Nilai ini sama
 
 $tot_all = $tot_all_eng1 + $tot_all_eng2;
-
-
-$tot_eng_ok=mysql_query("SELECT count(inspection_engine_number) as total_engine_ok from proses_inspection_header_log where inspection_status ='ENGINE OK'");
-$jml_eng_ok=mysql_fetch_array($tot_eng_ok);
-$tot_all_eng_ok=$jml_eng_ok['total_engine_ok'];
-
-$tot_eng_rework=mysql_query("SELECT count(inspection_engine_number) as total_engine_rework from proses_inspection_header where inspection_status ='REWORK'");
-$jml_eng_rework=mysql_fetch_array($tot_eng_rework);
-$tot_all_eng_rework=$jml_eng_rework['total_engine_rework'];
-
-$tot_eng_pending=mysql_query("SELECT count(inspection_engine_number) as total_engine_pending from proses_inspection_header where inspection_status ='PENDING'");
-$jml_eng_pending=mysql_fetch_array($tot_eng_pending);
-$tot_all_eng_pending=$jml_eng_pending['total_engine_pending'];
-
-$tot_eng_open=mysql_query("SELECT count(inspection_number) as total_engine_open from proses_inspection_header where inspection_status ='OPEN'");
-$jml_eng_open=mysql_fetch_array($tot_eng_open);
-$tot_all_eng_open=$jml_eng_open['total_engine_open'];
-
-
 
 ?>
 
@@ -49,7 +60,25 @@ $tot_all_eng_open=$jml_eng_open['total_engine_open'];
         <table border="0">
   <tr>
     <td colspan="4">
+        <!-- Form Filter -->
+        <form method="get" action="index.php" style="margin-bottom: 20px;">
+            <input type="hidden" name="pilih" value="home">
+            <select name="f_year" class="form-control" style="display:inline-block; width:auto; padding:5px;">
+                <option value="ALL" <?= $filter_year=='ALL'?'selected':'' ?>>ALL YEAR</option>
+                <?php for($y=2020; $y<=2030; $y++) { ?>
+                    <option value="<?= $y ?>" <?= $filter_year==$y?'selected':'' ?>><?= $y ?></option>
+                <?php } ?>
+            </select>
+            <select name="f_month" class="form-control" style="display:inline-block; width:auto; padding:5px; margin-left:10px;">
+                <option value="ALL" <?= $filter_month=='ALL'?'selected':'' ?>>ALL MONTH</option>
+                <?php for($m=1; $m<=12; $m++) { ?>
+                    <option value="<?= $m ?>" <?= $filter_month==$m?'selected':'' ?>><?= date("F", mktime(0,0,0,$m,1)) ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="Filter" class="btn btn-primary btn-sm" style="margin-left:10px; margin-bottom: 3px;">
+        </form>
     <div>
+
           <!--  -->
           	<div class="panel-group">
     		<div class="panel panel-primary">
@@ -126,11 +155,12 @@ $tot_all_eng_open=$jml_eng_open['total_engine_open'];
   <tr>
     <td width="600" valign="top">&nbsp;
      <?php
-    
-$bulan  = mysql_query("SELECT inspection_engine_number, form_code from proses_inspection_detail where operator_math='Hasil PS 100' order by id DESC limit 10");
-$penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_detail where operator_math='Hasil PS 100' order by id DESC limit 10");
-
-
+    $q_chart1 = mysql_query("SELECT inspection_engine_number, hasil_performa_test from proses_inspection_detail where operator_math='Hasil PS 100' order by id DESC limit 10");
+    $labels1 = ''; $data1 = '';
+    while($row = mysql_fetch_array($q_chart1)) {
+        $labels1 .= '"' . $row['inspection_engine_number'] . '",';
+        $data1 .= '"' . $row['hasil_performa_test'] . '",';
+    }
     ?>
     
     
@@ -142,10 +172,10 @@ $penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_de
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [<?php while ($b = mysql_fetch_array($bulan)) { echo '"' . $b['inspection_engine_number'] . '",';}?>],
+                    labels: [<?php echo $labels1; ?>],
                     datasets: [{
                             label: 'MAX Power(ps)',
-                            data: [<?php while ($p = mysql_fetch_array($penghasilan)) { echo '"' . $p['hasil_performa_test'] . '",';}?>],
+                            data: [<?php echo $data1; ?>],
                             backgroundColor: ['rgba(0,0,0,0)'],
                             borderColor: ['blue'],
                             borderWidth: 1
@@ -171,9 +201,12 @@ $penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_de
     <td  width="600" valign="top">&nbsp;
     
     <?php
-    
-    $bulan  = mysql_query("SELECT inspection_engine_number from proses_inspection_detail_log where operator_math='Rumus PS' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
-$penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_detail_log where operator_math='Rumus PS' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
+    $q_chart2 = mysql_query("SELECT inspection_engine_number, hasil_performa_test from proses_inspection_detail_log where operator_math='Rumus PS' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
+    $labels2 = ''; $data2 = '';
+    while($row = mysql_fetch_array($q_chart2)) {
+        $labels2 .= '"' . $row['inspection_engine_number'] . '",';
+        $data2 .= '"' . $row['hasil_performa_test'] . '",';
+    }
     ?>
     
     
@@ -185,10 +218,10 @@ $penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_de
             var myCharts = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [<?php while ($b = mysql_fetch_array($bulan)) { echo '"' . $b['inspection_engine_number'] . '",';}?>],
+                    labels: [<?php echo $labels2; ?>],
                     datasets: [{
                             label: 'Maximum Torque(Kgfm)',
-                            data: [<?php while ($p = mysql_fetch_array($penghasilan)) { echo '"' . $p['hasil_performa_test'] . '",';}?>],
+                            data: [<?php echo $data2; ?>],
                             backgroundColor: [
 								'rgba(153, 102, 255, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
@@ -242,9 +275,12 @@ $penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_de
     <td  width="600" valign="top">&nbsp;
     
     <?php
-    
-    $bulan  = mysql_query("SELECT inspection_engine_number from proses_inspection_detail_log where operator_math='Rumus Low' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
-$penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_detail_log where operator_math='Rumus Low' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
+    $q_chart3 = mysql_query("SELECT inspection_engine_number, hasil_performa_test from proses_inspection_detail_log where operator_math='Rumus Low' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
+    $labels3 = ''; $data3 = '';
+    while($row = mysql_fetch_array($q_chart3)) {
+        $labels3 .= '"' . $row['inspection_engine_number'] . '",';
+        $data3 .= '"' . $row['hasil_performa_test'] . '",';
+    }
     ?>
     
     
@@ -256,10 +292,10 @@ $penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_de
             var myChartsi = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [<?php while ($b = mysql_fetch_array($bulan)) { echo '"' . $b['inspection_engine_number'] . '",';}?>],
+                    labels: [<?php echo $labels3; ?>],
                     datasets: [{
                             label: 'Low speed side Torque Kgfm)',
-                            data: [<?php while ($p = mysql_fetch_array($penghasilan)) { echo '"' . $p['hasil_performa_test'] . '",';}?>],
+                            data: [<?php echo $data3; ?>],
                             backgroundColor: [
 								'rgba(255, 159, 64, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
@@ -307,9 +343,12 @@ $penghasilan = mysql_query("SELECT hasil_performa_test from proses_inspection_de
     <td  width="600" valign="top">&nbsp;
     
     <?php
-    
-    $buln  = mysql_query("SELECT inspection_engine_number from proses_inspection_detail_log where operator_math='Rumus TS 100' and inspection_status = 'ENGINE OK'order by id DESC limit 10");
-$penghasilan = mysql_query("SELECT hasil_q from proses_inspection_detail_log where operator_math='Rumus TS 100' and inspection_status = 'ENGINE OK'order by id DESC limit 10");
+    $q_chart4 = mysql_query("SELECT inspection_engine_number, hasil_q from proses_inspection_detail_log where operator_math='Rumus TS 100' and inspection_status = 'ENGINE OK' order by id DESC limit 10");
+    $labels4 = ''; $data4 = '';
+    while($row = mysql_fetch_array($q_chart4)) {
+        $labels4 .= '"' . $row['inspection_engine_number'] . '",';
+        $data4 .= '"' . $row['hasil_q'] . '",';
+    }
     ?>
     
     
@@ -321,10 +360,10 @@ $penghasilan = mysql_query("SELECT hasil_q from proses_inspection_detail_log whe
             var myChartso = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [<?php while ($b = mysql_fetch_array($buln)) { echo '"' . $b['inspection_engine_number'] . '",';}?>],
+                    labels: [<?php echo $labels4; ?>],
                     datasets: [{
                             label: 'Fuel injection amoun',
-                            data: [<?php while ($p = mysql_fetch_array($penghasilan)) { echo '"' . $p['hasil_q'] . '",';}?>],
+                            data: [<?php echo $data4; ?>],
                             backgroundColor: [
 								'rgba(75, 192, 192, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
