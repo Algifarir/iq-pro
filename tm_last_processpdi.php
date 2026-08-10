@@ -166,7 +166,7 @@
   </tr>
     <td><Strong>Camera&nbsp;</Strong></td>
     <td>&nbsp;:</td>
-    <td>&nbsp;<input type="file" id="uploaded_file" name="uploaded_file" accept="image/*" capture="camera" required/></td>
+    <td>&nbsp;<input type="file" id="uploaded_file" name="uploaded_file" accept="image/*" capture="environment" required/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
