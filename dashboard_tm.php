@@ -75,7 +75,23 @@
     
     <script>
         $(document).ready(function () {
-            $(".select2").select2({
+            $(".select2").select2();
+            
+            $("#engine_number").select2({
+                placeholder: "Ketik min. 3 huruf",
+                minimumInputLength: 3,
+                ajax: {
+                    url: 'ajax_tm_number.php',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { q: params.term };
+                    },
+                    processResults: function (data) {
+                        return { results: data };
+                    },
+                    cache: true
+                }
             });
         });
     </script>
@@ -344,21 +360,8 @@ return false;
     <td><strong>TM Number</strong></td>
     <td>&nbsp;<strong>:</strong></td>
     <td>&nbsp;
-    <select class="form-control select2"  name="engine_number" id="engine_number" onchange='changeValue2x(this.value)' required>
-		<option  value=""></option>
-
-            <?php
-          
-             $hasil=mysql_query("select * from transmisi_master_transmisi where engine_status='Aktif' order by id ASC");
-			 $no=0;
-			 while ($dtcombo=mysql_fetch_array($hasil)) {
-             $no++;
-
-            ?>
-            <option  value="<?php echo $dtcombo['engine_number'];?>"><?php echo $dtcombo['engine_number'];?></option>
-            <?php
-	}
-  ?>
+    <select class="form-control" name="engine_number" id="engine_number" onchange='changeValue2x(this.value)' required>
+		<option value=""></option>
         </select>
         
    </td>
