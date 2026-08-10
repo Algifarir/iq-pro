@@ -1,0 +1,860 @@
+=== TABLE: master_area ===
+CREATE TABLE `master_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area_code` varchar(255) DEFAULT NULL,
+  `area_name` varchar(255) DEFAULT NULL,
+  `area_address` varchar(255) DEFAULT NULL,
+  `area_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1
+
+=== TABLE: master_engine ===
+CREATE TABLE `master_engine` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=158986 DEFAULT CHARSET=latin1
+
+=== TABLE: master_engine_backup ===
+CREATE TABLE `master_engine_backup` (
+  `id` int(11) DEFAULT NULL,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=11436 DEFAULT CHARSET=latin1
+
+=== TABLE: master_engine_temp1 ===
+CREATE TABLE `master_engine_temp1` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17104 DEFAULT CHARSET=latin1
+
+=== TABLE: master_engine_temp1_trans ===
+CREATE TABLE `master_engine_temp1_trans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17414 DEFAULT CHARSET=latin1
+
+=== TABLE: master_engine_temp2 ===
+CREATE TABLE `master_engine_temp2` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=169562 DEFAULT CHARSET=latin1
+
+=== TABLE: master_engine_temp2_trans ===
+CREATE TABLE `master_engine_temp2_trans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=220172 DEFAULT CHARSET=latin1
+
+=== TABLE: master_image ===
+CREATE TABLE `master_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `group_tab` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1
+
+=== TABLE: master_inspection_back_engine ===
+CREATE TABLE `master_inspection_back_engine` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_back_engine` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=latin1
+
+=== TABLE: master_inspection_front_engine ===
+CREATE TABLE `master_inspection_front_engine` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_front_engine` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=158 DEFAULT CHARSET=latin1
+
+=== TABLE: master_inspection_left_side ===
+CREATE TABLE `master_inspection_left_side` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_left_side` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=382 DEFAULT CHARSET=latin1
+
+=== TABLE: master_inspection_right_side ===
+CREATE TABLE `master_inspection_right_side` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_right_side` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=450 DEFAULT CHARSET=latin1
+
+=== TABLE: master_inspection_top_engine ===
+CREATE TABLE `master_inspection_top_engine` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_top_engine` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=150 DEFAULT CHARSET=latin1
+
+=== TABLE: master_item_inspection ===
+CREATE TABLE `master_item_inspection` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `item_inspection` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT '',
+  `group_column` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=459 DEFAULT CHARSET=latin1
+
+=== TABLE: master_menu ===
+CREATE TABLE `master_menu` (
+  `id_menu` int(2) NOT NULL AUTO_INCREMENT,
+  `name_menu` varchar(100) DEFAULT NULL,
+  `order_id` varchar(2) DEFAULT '',
+  `icon` varchar(30) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  `type_menu` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_menu`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1
+
+=== TABLE: master_menu_user ===
+CREATE TABLE `master_menu_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_menu` varchar(255) DEFAULT NULL,
+  `name_menu` varchar(255) DEFAULT '',
+  `url` varchar(255) DEFAULT NULL,
+  `menu_order` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  `rol_add` varchar(255) DEFAULT NULL,
+  `rol_edit` varchar(255) DEFAULT NULL,
+  `rol_delete` varchar(255) DEFAULT NULL,
+  `rol_view` varchar(255) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `assigned_menu` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1
+
+=== TABLE: master_performance_test ===
+CREATE TABLE `master_performance_test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `description` varchar(500) DEFAULT '',
+  `rpm` varchar(255) DEFAULT NULL,
+  `max_speed_start` varchar(255) DEFAULT NULL,
+  `max_speed_finish` varchar(255) DEFAULT NULL,
+  `low_speed_start` varchar(255) DEFAULT NULL,
+  `low_speed_finish` varchar(255) DEFAULT NULL,
+  `spec_start` varchar(255) DEFAULT NULL,
+  `spec_finish` varchar(255) DEFAULT NULL,
+  `uom` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT '',
+  `group_column` varchar(255) DEFAULT NULL,
+  `operator_math` varchar(255) DEFAULT NULL,
+  `full_consup` varchar(255) DEFAULT NULL,
+  `cylinder` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1682 DEFAULT CHARSET=latin1
+
+=== TABLE: master_type_form ===
+CREATE TABLE `master_type_form` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT '',
+  `form_title` varchar(255) DEFAULT '',
+  `form_type` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT '',
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1
+
+=== TABLE: master_user ===
+CREATE TABLE `master_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT '',
+  `password` varchar(255) DEFAULT NULL,
+  `full_name` varchar(255) DEFAULT '',
+  `departement` varchar(255) DEFAULT '',
+  `email` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `usr_stat` varchar(255) DEFAULT NULL,
+  `rol` varchar(255) DEFAULT NULL,
+  `log_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1
+
+=== TABLE: number_inspection ===
+CREATE TABLE `number_inspection` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nomor` varchar(255) DEFAULT NULL,
+  `form_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
+=== TABLE: others_history_log ===
+CREATE TABLE `others_history_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `id_user_change` varchar(255) DEFAULT NULL,
+  `type_log` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1338 DEFAULT CHARSET=latin1
+
+=== TABLE: proses_inspection_detail ===
+CREATE TABLE `proses_inspection_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `hasil_running_ok` varchar(255) DEFAULT NULL,
+  `hasil_running_no` varchar(255) DEFAULT NULL,
+  `rpm` varchar(255) DEFAULT NULL,
+  `spec_start` varchar(255) DEFAULT NULL,
+  `spec_finish` varchar(255) DEFAULT NULL,
+  `uom` varchar(255) DEFAULT NULL,
+  `hasil_performa_test` varchar(255) DEFAULT NULL,
+  `hasil_pt_ok` varchar(255) DEFAULT NULL,
+  `hasil_pt_no` varchar(255) DEFAULT NULL,
+  `group_tab` varchar(255) DEFAULT NULL,
+  `group_column` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `hasil_final_ok` varchar(255) DEFAULT NULL,
+  `hasil_final_no` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `update_item` varchar(255) DEFAULT '',
+  `dt_proses` varchar(255) DEFAULT NULL,
+  `operator_math` varchar(255) DEFAULT NULL,
+  `full_consup` varchar(255) DEFAULT NULL,
+  `cylinder` varchar(255) DEFAULT NULL,
+  `hasil_f` varchar(255) DEFAULT NULL,
+  `hasil_q` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10228162 DEFAULT CHARSET=latin1
+
+=== TABLE: proses_inspection_detail_log ===
+CREATE TABLE `proses_inspection_detail_log` (
+  `id` int(11) NOT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `hasil_running_ok` varchar(255) DEFAULT NULL,
+  `hasil_running_no` varchar(255) DEFAULT NULL,
+  `rpm` varchar(255) DEFAULT NULL,
+  `spec_start` varchar(255) DEFAULT NULL,
+  `spec_finish` varchar(255) DEFAULT NULL,
+  `uom` varchar(255) DEFAULT NULL,
+  `hasil_performa_test` varchar(255) DEFAULT NULL,
+  `hasil_pt_ok` varchar(255) DEFAULT NULL,
+  `hasil_pt_no` varchar(255) DEFAULT NULL,
+  `group_tab` varchar(255) DEFAULT NULL,
+  `group_column` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `hasil_final_ok` varchar(255) DEFAULT NULL,
+  `hasil_final_no` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `update_item` varchar(255) DEFAULT '',
+  `dt_proses` varchar(255) DEFAULT NULL,
+  `operator_math` varchar(255) DEFAULT NULL,
+  `full_consup` varchar(255) DEFAULT NULL,
+  `cylinder` varchar(255) DEFAULT NULL,
+  `hasil_f` varchar(255) DEFAULT NULL,
+  `hasil_q` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5412 DEFAULT CHARSET=latin1
+
+=== TABLE: proses_inspection_header ===
+CREATE TABLE `proses_inspection_header` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `inspection_date` varchar(255) DEFAULT NULL,
+  `inspection_time` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `faktor_koreksi` varchar(255) DEFAULT NULL,
+  `operator_name` varchar(255) DEFAULT NULL,
+  `ip_number` varchar(255) DEFAULT NULL,
+  `desc_running` varchar(255) DEFAULT NULL,
+  `desc_performance` varchar(255) DEFAULT NULL,
+  `desc_final` varchar(255) DEFAULT NULL,
+  `approve_name` varchar(255) DEFAULT NULL,
+  `created_fname` varchar(255) DEFAULT NULL,
+  `inspection_name` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `final_judgement` varchar(255) DEFAULT NULL,
+  `bln` varchar(255) DEFAULT NULL,
+  `thn` varchar(255) DEFAULT NULL,
+  `user_input` varchar(255) DEFAULT NULL,
+  `inspection_update_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=123365 DEFAULT CHARSET=latin1
+
+=== TABLE: proses_inspection_header_backup ===
+CREATE TABLE `proses_inspection_header_backup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `inspection_date` varchar(255) DEFAULT NULL,
+  `inspection_time` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `faktor_koreksi` varchar(255) DEFAULT NULL,
+  `operator_name` varchar(255) DEFAULT NULL,
+  `ip_number` varchar(255) DEFAULT NULL,
+  `desc_running` varchar(255) DEFAULT NULL,
+  `desc_performance` varchar(255) DEFAULT NULL,
+  `desc_final` varchar(255) DEFAULT NULL,
+  `approve_name` varchar(255) DEFAULT NULL,
+  `created_fname` varchar(255) DEFAULT NULL,
+  `inspection_name` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `final_judgement` varchar(255) DEFAULT NULL,
+  `bln` varchar(255) DEFAULT NULL,
+  `thn` varchar(255) DEFAULT NULL,
+  `user_input` varchar(255) DEFAULT NULL,
+  `inspection_update_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7892 DEFAULT CHARSET=latin1
+
+=== TABLE: proses_inspection_header_log ===
+CREATE TABLE `proses_inspection_header_log` (
+  `id` int(11) NOT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `inspection_date` varchar(255) DEFAULT NULL,
+  `inspection_time` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `faktor_koreksi` varchar(255) DEFAULT NULL,
+  `operator_name` varchar(255) DEFAULT NULL,
+  `ip_number` varchar(255) DEFAULT NULL,
+  `desc_running` varchar(255) DEFAULT NULL,
+  `desc_performance` varchar(255) DEFAULT NULL,
+  `desc_final` varchar(255) DEFAULT NULL,
+  `approve_name` varchar(255) DEFAULT NULL,
+  `created_fname` varchar(255) DEFAULT NULL,
+  `inspection_name` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `final_judgement` varchar(255) DEFAULT NULL,
+  `bln` varchar(255) DEFAULT NULL,
+  `thn` varchar(255) DEFAULT NULL,
+  `user_input` varchar(255) DEFAULT NULL,
+  `inspection_update_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=136 DEFAULT CHARSET=latin1
+
+=== TABLE: proses_inspection_header_log_backup ===
+CREATE TABLE `proses_inspection_header_log_backup` (
+  `id` int(11) NOT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `inspection_date` varchar(255) DEFAULT NULL,
+  `inspection_time` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `faktor_koreksi` varchar(255) DEFAULT NULL,
+  `operator_name` varchar(255) DEFAULT NULL,
+  `ip_number` varchar(255) DEFAULT NULL,
+  `desc_running` varchar(255) DEFAULT NULL,
+  `desc_performance` varchar(255) DEFAULT NULL,
+  `desc_final` varchar(255) DEFAULT NULL,
+  `approve_name` varchar(255) DEFAULT NULL,
+  `created_fname` varchar(255) DEFAULT NULL,
+  `inspection_name` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `final_judgement` varchar(255) DEFAULT NULL,
+  `bln` varchar(255) DEFAULT NULL,
+  `thn` varchar(255) DEFAULT NULL,
+  `user_input` varchar(255) DEFAULT NULL,
+  `inspection_update_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=136 DEFAULT CHARSET=latin1
+
+=== TABLE: report_inspection ===
+CREATE TABLE `report_inspection` (
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `R1` varchar(255) DEFAULT NULL,
+  `R2` varchar(255) DEFAULT NULL,
+  `R3` varchar(255) DEFAULT NULL,
+  `R4` varchar(255) DEFAULT NULL,
+  `R5` varchar(255) DEFAULT NULL,
+  `R6` varchar(255) DEFAULT NULL,
+  `R7` varchar(255) DEFAULT NULL,
+  `R8` varchar(255) DEFAULT NULL,
+  `R9` varchar(255) DEFAULT NULL,
+  `R10` varchar(255) DEFAULT NULL,
+  `R11` varchar(255) DEFAULT NULL,
+  `R12` varchar(255) DEFAULT NULL,
+  `R13` varchar(255) DEFAULT NULL,
+  `P1` varchar(255) DEFAULT NULL,
+  `P2` varchar(255) DEFAULT NULL,
+  `P3` varchar(255) DEFAULT NULL,
+  `P4` varchar(255) DEFAULT NULL,
+  `P5` varchar(255) DEFAULT NULL,
+  `P6` varchar(255) DEFAULT NULL,
+  `P7` varchar(255) DEFAULT NULL,
+  `P8` varchar(255) DEFAULT NULL,
+  `P9` varchar(255) DEFAULT NULL,
+  `P10` varchar(255) DEFAULT NULL,
+  `P11` varchar(255) DEFAULT NULL,
+  `P12` varchar(255) DEFAULT NULL,
+  `P13` varchar(255) DEFAULT NULL,
+  `P14` varchar(255) DEFAULT NULL,
+  `P15` varchar(255) DEFAULT NULL,
+  `P16` varchar(255) DEFAULT NULL,
+  `P17` varchar(255) DEFAULT NULL,
+  `P18` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
+=== TABLE: tm_report_inspection ===
+CREATE TABLE `tm_report_inspection` (
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `R1` varchar(255) DEFAULT NULL,
+  `R2` varchar(255) DEFAULT NULL,
+  `R3` varchar(255) DEFAULT NULL,
+  `R4` varchar(255) DEFAULT NULL,
+  `R5` varchar(255) DEFAULT NULL,
+  `R6` varchar(255) DEFAULT NULL,
+  `R7` varchar(255) DEFAULT NULL,
+  `R8` varchar(255) DEFAULT NULL,
+  `R9` varchar(255) DEFAULT NULL,
+  `R10` varchar(255) DEFAULT NULL,
+  `R11` varchar(255) DEFAULT NULL,
+  `R12` varchar(255) DEFAULT NULL,
+  `R13` varchar(255) DEFAULT NULL,
+  `P1` varchar(255) DEFAULT NULL,
+  `P2` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_back_tm ===
+CREATE TABLE `transmisi_back_tm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_back_engine` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=132 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_inspection_right_tm ===
+CREATE TABLE `transmisi_inspection_right_tm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_right_side` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=463 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master ===
+CREATE TABLE `transmisi_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=57030 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_area ===
+CREATE TABLE `transmisi_master_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area_code` varchar(255) DEFAULT NULL,
+  `area_name` varchar(255) DEFAULT NULL,
+  `area_address` varchar(255) DEFAULT NULL,
+  `area_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_front_tm ===
+CREATE TABLE `transmisi_master_front_tm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_front_engine` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=167 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_image ===
+CREATE TABLE `transmisi_master_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `group_tab` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_inspection_left_tm ===
+CREATE TABLE `transmisi_master_inspection_left_tm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_left_side` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=405 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_leak_inspection ===
+CREATE TABLE `transmisi_master_leak_inspection` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `item_inspection` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT '',
+  `group_column` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL,
+  `no` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=475 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_motoring_inspection ===
+CREATE TABLE `transmisi_master_motoring_inspection` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `item_inspection` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT '',
+  `group_column` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=490 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_top_tm ===
+CREATE TABLE `transmisi_master_top_tm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_top_engine` varchar(255) DEFAULT '',
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=172 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_transmisi ===
+CREATE TABLE `transmisi_master_transmisi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=206744 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_transmisi_backup ===
+CREATE TABLE `transmisi_master_transmisi_backup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `engine_number` varchar(255) DEFAULT NULL,
+  `engine_name` varchar(255) DEFAULT NULL,
+  `engine_model` varchar(255) DEFAULT NULL,
+  `engine_brand` varchar(255) DEFAULT NULL,
+  `car_name` varchar(255) DEFAULT '',
+  `engine_suplier` varchar(255) DEFAULT NULL,
+  `engine_area_name` varchar(255) DEFAULT '',
+  `engine_status` varchar(255) DEFAULT NULL,
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `tgl` varchar(255) DEFAULT NULL,
+  `power_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=59136 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_master_type_form ===
+CREATE TABLE `transmisi_master_type_form` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT '',
+  `form_title` varchar(255) DEFAULT '',
+  `form_type` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_dept` varchar(255) DEFAULT '',
+  `nama_file` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_number ===
+CREATE TABLE `transmisi_number` (
+  `id` int(11) DEFAULT NULL,
+  `number` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_problem ===
+CREATE TABLE `transmisi_problem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `problem` varchar(255) DEFAULT NULL,
+  `penyebab` varchar(255) DEFAULT NULL,
+  `tindakan` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `pic` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=321446 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_proses_inspection_detail ===
+CREATE TABLE `transmisi_proses_inspection_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `hasil_running_ok` varchar(255) DEFAULT NULL,
+  `hasil_running_no` varchar(255) DEFAULT NULL,
+  `rpm` varchar(255) DEFAULT NULL,
+  `spec_start` varchar(255) DEFAULT NULL,
+  `spec_finish` varchar(255) DEFAULT NULL,
+  `uom` varchar(255) DEFAULT NULL,
+  `hasil_performa_test` varchar(255) DEFAULT NULL,
+  `hasil_pt_ok` varchar(255) DEFAULT NULL,
+  `hasil_pt_no` varchar(255) DEFAULT NULL,
+  `group_tab` varchar(255) DEFAULT NULL,
+  `group_column` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `hasil_final_ok` varchar(255) DEFAULT NULL,
+  `hasil_final_no` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `update_item` varchar(255) DEFAULT '',
+  `dt_proses` varchar(255) DEFAULT NULL,
+  `operator_math` varchar(255) DEFAULT NULL,
+  `full_consup` varchar(255) DEFAULT NULL,
+  `cylinder` varchar(255) DEFAULT NULL,
+  `hasil_f` varchar(255) DEFAULT NULL,
+  `hasil_q` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5522145 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_proses_inspection_detail_log ===
+CREATE TABLE `transmisi_proses_inspection_detail_log` (
+  `id` int(11) NOT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `hasil_running_ok` varchar(255) DEFAULT NULL,
+  `hasil_running_no` varchar(255) DEFAULT NULL,
+  `rpm` varchar(255) DEFAULT NULL,
+  `spec_start` varchar(255) DEFAULT NULL,
+  `spec_finish` varchar(255) DEFAULT NULL,
+  `uom` varchar(255) DEFAULT NULL,
+  `hasil_performa_test` varchar(255) DEFAULT NULL,
+  `hasil_pt_ok` varchar(255) DEFAULT NULL,
+  `hasil_pt_no` varchar(255) DEFAULT NULL,
+  `group_tab` varchar(255) DEFAULT NULL,
+  `group_column` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `hasil_final_ok` varchar(255) DEFAULT NULL,
+  `hasil_final_no` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `update_item` varchar(255) DEFAULT '',
+  `dt_proses` varchar(255) DEFAULT NULL,
+  `operator_math` varchar(255) DEFAULT NULL,
+  `full_consup` varchar(255) DEFAULT NULL,
+  `cylinder` varchar(255) DEFAULT NULL,
+  `hasil_f` varchar(255) DEFAULT NULL,
+  `hasil_q` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5412 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_proses_inspection_header ===
+CREATE TABLE `transmisi_proses_inspection_header` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `inspection_date` varchar(255) DEFAULT NULL,
+  `inspection_time` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `faktor_koreksi` varchar(255) DEFAULT NULL,
+  `operator_name` varchar(255) DEFAULT NULL,
+  `ip_number` varchar(255) DEFAULT NULL,
+  `desc_running` varchar(255) DEFAULT NULL,
+  `desc_performance` varchar(255) DEFAULT NULL,
+  `desc_final` varchar(255) DEFAULT NULL,
+  `approve_name` varchar(255) DEFAULT NULL,
+  `created_fname` varchar(255) DEFAULT NULL,
+  `inspection_name` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `final_judgement` varchar(255) DEFAULT NULL,
+  `bln` varchar(255) DEFAULT NULL,
+  `thn` varchar(255) DEFAULT NULL,
+  `user_input` varchar(255) DEFAULT NULL,
+  `inspection_update_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=97452 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_proses_inspection_header_log ===
+CREATE TABLE `transmisi_proses_inspection_header_log` (
+  `id` int(11) NOT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `inspection_date` varchar(255) DEFAULT NULL,
+  `inspection_time` varchar(255) DEFAULT NULL,
+  `inspection_area` varchar(255) DEFAULT NULL,
+  `inspection_engine_number` varchar(255) DEFAULT NULL,
+  `inspection_engine_model` varchar(255) DEFAULT NULL,
+  `faktor_koreksi` varchar(255) DEFAULT NULL,
+  `operator_name` varchar(255) DEFAULT NULL,
+  `ip_number` varchar(255) DEFAULT NULL,
+  `desc_running` varchar(255) DEFAULT NULL,
+  `desc_performance` varchar(255) DEFAULT NULL,
+  `desc_final` varchar(255) DEFAULT NULL,
+  `approve_name` varchar(255) DEFAULT NULL,
+  `created_fname` varchar(255) DEFAULT NULL,
+  `inspection_name` varchar(255) DEFAULT NULL,
+  `inspection_status` varchar(255) DEFAULT NULL,
+  `final_judgement` varchar(255) DEFAULT NULL,
+  `bln` varchar(255) DEFAULT NULL,
+  `thn` varchar(255) DEFAULT NULL,
+  `user_input` varchar(255) DEFAULT NULL,
+  `inspection_update_status` varchar(255) DEFAULT NULL,
+  `sts_data` varchar(255) DEFAULT NULL,
+  `verifikasi` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=136 DEFAULT CHARSET=latin1
+
+=== TABLE: transmisi_upload ===
+CREATE TABLE `transmisi_upload` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_file` varchar(255) DEFAULT '',
+  `url` varchar(255) DEFAULT '',
+  `inspection_number` varchar(255) DEFAULT NULL,
+  `form_code` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=64619 DEFAULT CHARSET=latin1
+
