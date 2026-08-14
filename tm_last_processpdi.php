@@ -202,3 +202,68 @@
 </table>
 </form>
 </div>
+<script>
+(function () {
+    var stream = null;
+    var startButton = document.getElementById('camera_start');
+    var captureButton = document.getElementById('camera_capture');
+    var stopButton = document.getElementById('camera_stop');
+    var video = document.getElementById('camera_video');
+    var canvas = document.getElementById('camera_canvas');
+    var preview = document.getElementById('camera_preview');
+    var imageInput = document.getElementById('camera_image');
+    var statusBox = document.getElementById('camera_status');
+
+    function status(message) {
+        statusBox.innerHTML = message;
+    }
+
+    function stopCamera() {
+        if (stream) {
+            var tracks = stream.getTracks();
+            for (var i = 0; i < tracks.length; i++) {
+                tracks[i].stop();
+            }
+            stream = null;
+        }
+        video.style.display = 'none';
+        captureButton.style.display = 'none';
+        stopButton.style.display = 'none';
+        startButton.style.display = '';
+    }
+
+    startButton.onclick = function () {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            status('Kamera custom tidak tersedia. Pakai fallback Choose File.');
+            return;
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false })
+            .then(function (mediaStream) {
+                stream = mediaStream;
+                video.srcObject = mediaStream;
+                video.style.display = 'block';
+                captureButton.style.display = '';
+                stopButton.style.display = '';
+                startButton.style.display = 'none';
+                status('Kamera aktif. Arahkan lalu tekan Ambil Foto.');
+            })
+            .catch(function () {
+                status('Kamera tidak bisa dibuka. Izinkan kamera atau pakai fallback Choose File.');
+            });
+    };
+
+    captureButton.onclick = function () {
+        canvas.width = video.videoWidth || 1280;
+        canvas.height = video.videoHeight || 720;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageInput.value = canvas.toDataURL('image/jpeg', 0.85);
+        preview.src = imageInput.value;
+        preview.style.display = 'block';
+        status('Foto siap dikirim.');
+        stopCamera();
+    };
+
+    stopButton.onclick = stopCamera;
+})();
+</script>

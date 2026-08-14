@@ -15,7 +15,8 @@
     {
     $pilih=$_GET['pilih'];
       switch($pilih){
-        default   : $tampil = "mst_isi.php"; break;
+        default   : $tampil = "dashboard_engine_loader.php"; break;
+        case "home"  : $tampil = "dashboard_engine_loader.php"; break;
         case "1.1"  : $tampil = "masteruser/mst_user.php"; break; 
         case "1.2"  : $tampil = "masteruser/mst_assigned.php"; break;
         case "2.1"  : $tampil = "masterarea/mst_area.php"; break; 
@@ -46,7 +47,7 @@
 		case "4.6"  : $tampil = "monitoring/view_rework.php"; break;
 		case "4.7"  : $tampil = "monitoring/view_pending.php"; break;
 		case "4.8"  : $tampil = "masterimage/mst_image_form.php"; break;
-		case "4.9"  : $tampil = "transmisi/dhb_trans.php"; break;
+		case "4.9"  : $tampil = "dashboard_transmisi_loader.php"; break;
 		case "5.0"  : $tampil = "motoringarea/mst_area_motoring.php"; break;
 		case "5.1"  : $tampil = "motoringtransmisi/mst_transmisi.php"; break;
 		case "5.2"  : $tampil = "motoringform/mst_type_form_tm.php"; break;

@@ -1,6 +1,6 @@
 <?php
 	ini_set('display_errors',FALSE);
-	$host	= "localhost";
+	$host	= "127.0.0.1:3307";
 	$user	= "root";
 	$pass	= "";
 	$db		= "mkm";
