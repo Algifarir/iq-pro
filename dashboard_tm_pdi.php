@@ -41,6 +41,60 @@ if (empty($_SESSION['kopname']) || empty($_SESSION['level'])) {
         width: 100%;
     }
 
+    .tm-search {
+        margin: 8px 0 12px;
+        padding: 8px;
+        background: #fff;
+        border: 1px solid #ddd;
+    }
+
+    .tm-search input {
+        height: 42px;
+        font-size: 22px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background: #fff !important;
+    }
+
+    .tm-keyboard {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 8px;
+        margin-top: 6px;
+    }
+
+    .tm-key-left,
+    .tm-key-numpad {
+        display: grid;
+        gap: 5px;
+    }
+
+    .tm-key-left {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tm-key-numpad {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tm-keyboard button {
+        min-height: 38px;
+        padding: 4px 8px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .tm-key-left span {
+        min-height: 38px;
+    }
+
+    @media screen and (max-width: 600px) {
+        .tm-keyboard {
+            grid-template-columns: 1fr;
+        }
+    }
+
     @media screen and (min-width: 800px) {
         .container {
             width: 800px;
@@ -145,6 +199,53 @@ if (empty($_SESSION['kopname']) || empty($_SESSION['level'])) {
 
                 <?php include "barcode_code128_reader.php"; ?>
 
+            <div class="tm-search">
+                <form method="get" action="dashboard_tm_pdi.php" id="tm-search-form">
+                    <input type="hidden" name="pilih" value="2.6">
+                    <input type="hidden" name="halaman" value="1">
+                    <input type="hidden" name="kopname" value="<?php echo $kopname; ?>">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="q" id="tm-search-input" value="" placeholder="M025-B10001 / 0001" readonly inputmode="none" autocomplete="off">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Cari</button>
+                            <button type="button" class="btn btn-success" id="tm-open-code">Buka</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="tm-keyboard" id="tm-keyboard">
+                    <div class="tm-key-left">
+                        <button type="button" class="btn btn-outline-dark" data-key="M025-">M025</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="A">A</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="M035-">M035</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="B">B</button>
+                        <span></span>
+                        <button type="button" class="btn btn-outline-dark" data-key="C">C</button>
+                        <span></span>
+                        <span></span>
+                        <button type="button" class="btn btn-warning" data-action="back">Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-action="clear">Clear</button>
+                    </div>
+                    <div class="tm-key-numpad">
+                        <button type="button" class="btn btn-outline-dark" data-key="7">7</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="8">8</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="9">9</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="4">4</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="5">5</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="6">6</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="1">1</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="2">2</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="3">3</button>
+                        <span></span>
+                        <button type="button" class="btn btn-outline-dark" data-key="0">0</button>
+                        <span></span>
+                        <button type="button" class="btn btn-outline-dark" data-key="X">X</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="Y">Y</button>
+                        <button type="button" class="btn btn-outline-dark" data-key="Z">Z</button>
+                    </div>
+                </div>
+                <div id="tm-search-message" style="margin-top:8px;font-weight:bold;color:#990000;"></div>
+            </div>
+
             <form class="form-inline" role="form">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
@@ -169,22 +270,17 @@ if (empty($_SESSION['kopname']) || empty($_SESSION['level'])) {
                     </thead>
                     <tbody><?php
 
-                            $halaman = 100;
-                            $page    = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
-                            $mulai    = ($page > 1) ? ($page * $halaman) - $halaman : 0;
-
                             $result = mysql_query("SELECT count(*) as total FROM transmisi_proses_inspection_header where inspection_status = 'PDI' ");
                             $__tot_row = mysql_fetch_array($result);
                             $total = $__tot_row['total'];
-                            $pages = ceil($total / $halaman);
 
-                            $query = mysql_query("SELECT * FROM transmisi_proses_inspection_header where inspection_status = 'PDI' ORDER BY inspection_date DESC  Limit $mulai, $halaman");
-                            $no = $mulai + 1;;
+                            $query = mysql_query("SELECT * FROM transmisi_proses_inspection_header where inspection_status = 'PDI' ORDER BY inspection_date DESC");
+                            $no = 1;
                             while ($data = mysql_fetch_array($query)) {
 
                                 $test = $data['form_code'];
                             ?>
-                            <tr>
+                            <tr data-tm-row="<?php echo htmlspecialchars($data['inspection_engine_number'], ENT_QUOTES); ?>">
                                 <td align="center"><?php echo $no; ?></td>
                                 <td><?php echo $data['inspection_engine_number']; ?></td>
                                 <td><?php echo $data['desc_running']; ?></td>
@@ -205,15 +301,119 @@ if (empty($_SESSION['kopname']) || empty($_SESSION['level'])) {
             </form>
 
             <div style="font-weight:bold;">
-                Page :
-                <?php
-                for ($i = 1; $i <= $pages; $i++) {
-                ?>
-                    <a href="dashboard_tm_pdi.php?pilih=2.6&halaman=<?php echo $i; ?>&kopname=<?php echo $kopname; ?>" style="text-decoration:none"><u><?php echo $i; ?></u></a>
-                <?php
-                }
-                ?>
+                Total : <?php echo $total; ?> data
             </div>
+            <div id="tm-page-list" style="font-weight:bold;margin-top:6px;"></div>
+
+            <script>
+                (function() {
+                    var input = document.getElementById('tm-search-input');
+                    var form = document.getElementById('tm-search-form');
+                    var keyboard = document.getElementById('tm-keyboard');
+                    var openButton = document.getElementById('tm-open-code');
+                    var message = document.getElementById('tm-search-message');
+                    var pageList = document.getElementById('tm-page-list');
+                    var pageSize = 100;
+                    var currentPage = 1;
+
+                    function setValue(value) {
+                        input.value = value.toUpperCase().replace(/[^M0-9ABCXYZ-]/g, '').slice(0, 20);
+                        currentPage = 1;
+                        filterRows();
+                    }
+
+                    function filterRows() {
+                        var keyword = input.value;
+                        var rows = document.querySelectorAll('[data-tm-row]');
+                        var matched = [];
+                        var totalPages;
+
+                        for (var i = 0; i < rows.length; i++) {
+                            var show = keyword === '' || rows[i].getAttribute('data-tm-row').indexOf(keyword) !== -1;
+                            rows[i].style.display = 'none';
+                            if (show) matched.push(rows[i]);
+                        }
+
+                        totalPages = Math.max(1, Math.ceil(matched.length / pageSize));
+                        if (currentPage > totalPages) currentPage = totalPages;
+
+                        for (var j = (currentPage - 1) * pageSize; j < matched.length && j < currentPage * pageSize; j++) {
+                            matched[j].style.display = '';
+                        }
+
+                        renderPages(totalPages);
+                        message.textContent = keyword ? 'Tampil ' + matched.length + ' dari ' + rows.length + ' data.' : '';
+                    }
+
+                    function renderPages(totalPages) {
+                        var html = 'Page : ';
+                        for (var i = 1; i <= totalPages; i++) {
+                            html += '<button type="button" class="btn btn-sm ' + (i === currentPage ? 'btn-danger' : 'btn-light') + '" data-page="' + i + '" style="margin:2px;">' + i + '</button>';
+                        }
+                        pageList.innerHTML = html;
+                    }
+
+                    form.onsubmit = function(event) {
+                        event.preventDefault();
+                        filterRows();
+                    };
+
+                    keyboard.onclick = function(event) {
+                        var button = event.target;
+                        if (button.tagName !== 'BUTTON') return;
+
+                        if (button.getAttribute('data-action') === 'clear') {
+                            setValue('');
+                            return;
+                        }
+
+                        if (button.getAttribute('data-action') === 'back') {
+                            setValue(input.value.slice(0, -1));
+                            return;
+                        }
+
+                        var key = button.getAttribute('data-key');
+                        if (!key) return;
+                        if (key.indexOf('M0') === 0) {
+                            setValue(key);
+                            return;
+                        }
+                        setValue(input.value + key);
+                    };
+
+                    pageList.onclick = function(event) {
+                        var page = event.target.getAttribute('data-page');
+                        if (!page) return;
+                        currentPage = parseInt(page, 10);
+                        filterRows();
+                    };
+
+                    openButton.onclick = function() {
+                        var code = input.value;
+                        message.textContent = '';
+
+                        if (!/^M0(25|35)-[ABC][1-9XYZ][0-9]{4}$/.test(code)) {
+                            filterRows();
+                            return;
+                        }
+
+                        $.post('ajax_tm_pdi_scan.php', {
+                            code: code,
+                            page: location.pathname.split('/').pop()
+                        }, function(response) {
+                            if (response.ok) {
+                                window.location.href = response.url;
+                                return;
+                            }
+                            message.textContent = response.message || 'Data PDI tidak ditemukan.';
+                        }, 'json').fail(function() {
+                            message.textContent = 'Gagal mencari data.';
+                        });
+                    };
+
+                    filterRows();
+                })();
+            </script>
 
             </p>
 
